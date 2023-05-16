@@ -105,7 +105,7 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
 	
 	try {
 		ofstream outputFile;
-		outputFile.open("summary.txt", std::ios_base::app);
+		outputFile.open("../summary.txt", std::ios_base::app);
 		outputFile << graphName << ":\n";
 		outputFile << "score: " << correct << "/" << scores.size() << "\n";
 		outputFile << "bit parallel took " << bit_parallel_time_in_seconds << " s\n";
@@ -120,6 +120,5 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
 		
 	}
 	
-    
 }
 

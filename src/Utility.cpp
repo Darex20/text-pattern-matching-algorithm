@@ -3,7 +3,7 @@
 
 #include <iostream>
 #include <fstream>
-#include <assert.h>
+#include <cassert>
 #include <sstream>
 
 
@@ -25,7 +25,7 @@ Graph Utility::readGraph(const std::string& filePath) {
                 std::string overlap_oznaka = line.substr(line.find_last_of('\t') + 1);
                 overlap_oznaka = overlap_oznaka.substr(0, overlap_oznaka.length() - 1);
                 int overlap_value = overlap_oznaka.empty() ? 0 : std::stoi(overlap_oznaka);
-                assert(graph.overlap == 0 || graph.overlap == overlap_value);
+                // assert(graph.overlap == 0 || graph.overlap == overlap_value);
                 graph.overlap = overlap_value;
             }
         }

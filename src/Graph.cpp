@@ -4,6 +4,7 @@
 #include <iostream>
 #include <string>
 #include <sstream>
+#include <algorithm>
 
 Node::Node(int id, bool reversed, string sequence){
     this->id = id;
