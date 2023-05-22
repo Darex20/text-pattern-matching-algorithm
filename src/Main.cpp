@@ -1,5 +1,5 @@
-#include "Utility.h"
 #include "Aligner.h"
+#include "FileReader.h"
 
 #include <iostream>
 #include <fstream>
@@ -24,7 +24,7 @@ int main () {
 	}
 	auto endTime = chrono::high_resolution_clock::now();
 	
-	double total_bit_parallel_time_in_seconds = Utility::add_bit_parallel_times(graphNames);
+	double total_bit_parallel_time_in_seconds = FileReader::add_bit_parallel_times(graphNames);
     double our_total_time =  (endTime - startTime).count() / 1000000000;
     double ratio = our_total_time / total_bit_parallel_time_in_seconds;
     
@@ -46,11 +46,11 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
     string bit_parallel_memory_file = "../data/bit_parallel_memory_usage/" + bit_parallel_file;
     string graphFilePath = "../data/graphs/" + graphName;
     string fastqFilePath = "../data/graphs/" + fastqName;
-	Graph graph = Utility::readGraph("../data/graphs/" + graphName);
-	vector<string> fastqs = Utility::readFastq("../data/graphs/" + fastqName);
-	vector<int> bit_parallel_scores = Utility::loadScores(bit_parallel_scores_file);
-	int bit_parallel_time = Utility::loadTime(bit_parallel_time_file);
-    int bit_parallel_memory_usage = Utility::loadMemory(bit_parallel_memory_file);
+	Graph graph = FileReader::readGraph("../data/graphs/" + graphName);
+	vector<string> fastqs = FileReader::readFastq("../data/graphs/" + fastqName);
+	vector<int> bit_parallel_scores = FileReader::loadScores(bit_parallel_scores_file);
+	int bit_parallel_time = FileReader::loadTime(bit_parallel_time_file);
+    int bit_parallel_memory_usage = FileReader::loadMemory(bit_parallel_memory_file);
     
     bool hasCycle = false;
 	vector<int> topologicalOrder;

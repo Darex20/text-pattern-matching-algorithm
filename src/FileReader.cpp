@@ -1,5 +1,5 @@
-#include "Utility.h"
-#include "Aligner.h"
+#include "FileReader.h"
+#include "NodeUtils.h"
 
 #include <iostream>
 #include <fstream>
@@ -7,7 +7,7 @@
 #include <sstream>
 
 //read graph from .gfa file
-Graph Utility::readGraph(const std::string& filePath) {
+Graph FileReader::readGraph(const std::string& filePath) {
     //try-catch block, try reading file
     try {
         std::ifstream file(filePath);
@@ -33,8 +33,8 @@ Graph Utility::readGraph(const std::string& filePath) {
 
         for (const std::string& line : lines) {
             if (line[0] == 'S') {
-                Node first_node = createNode(line, graph.overlap);
-                Node reverse_complement_node = createReverseComplementNode(line, graph.overlap);
+                Node first_node = NodeUtils::createNode(line, graph.overlap);
+                Node reverse_complement_node = NodeUtils::createReverseComplementNode(line, graph.overlap);
                 graph.addNode(first_node);
                 graph.addNode(reverse_complement_node);
             }
@@ -57,7 +57,7 @@ Graph Utility::readGraph(const std::string& filePath) {
 
 //read fastq sequence from file
 //return vector<string> of fastq sequences
-std::vector<std::string> Utility::readFastq(const std::string& filePath) {
+std::vector<std::string> FileReader::readFastq(const std::string& filePath) {
     std::vector<std::string> fastqs;
     try {
         std::ifstream file(filePath);
@@ -90,7 +90,7 @@ std::vector<std::string> Utility::readFastq(const std::string& filePath) {
 
 //read bit-parallel scores, save it in vector
 //returns vector of scores
-std::vector<int> Utility::loadScores(const std::string& filePath) {
+std::vector<int> FileReader::loadScores(const std::string& filePath) {
     std::vector<int> scores;
     try {
         std::ifstream file(filePath);
@@ -112,67 +112,9 @@ std::vector<int> Utility::loadScores(const std::string& filePath) {
 return scores;
 }
 
-//creates node with overlap
-//returns new Node
-Node Utility::createNode(const std::string& line, int overlap) {
-    std::vector<std::string> arr;
-    std::string token;
-    std::stringstream ss(line);
-    while (std::getline(ss, token, '\t')) {
-        arr.push_back(token);
-    }
-
-    int id = std::stoi(arr[1]);
-    std::string sequence = arr[2];
-    //for every node create 2 new nodes
-    //first node is normal (id*2)
-    return Node(id * 2, false, sequence.substr(0, sequence.length() - overlap));
-}
-
-//creates reverse complement node with overlap
-//returns new Node
-Node Utility::createReverseComplementNode(const std::string& line, int overlap) {
-    std::vector<std::string> arr;
-    std::string token;
-    std::stringstream ss(line);
-    while (std::getline(ss, token, '\t')) {
-        arr.push_back(token);
-    }
-
-    int id = std::stoi(arr[1]);
-    std::string sequence = arr[2];
-    //for every node create 2 new nodes
-    //second node is reverse complement (id*2+1)
-    return Node(id * 2 + 1, true, getReverseComplement(sequence).substr(0, sequence.length() - overlap));
-}
-
-//get reverse complement of sequence: A->T, C->G, G->C, A->T
-std::string Utility::getReverseComplement(const std::string& sequence) {
-    std::string reverse_complement;
-    for (int i = sequence.length() - 1; i >= 0; i--) {
-        char c = sequence[i];
-        if (c == 'A') {
-            reverse_complement += 'T';
-            break;
-        } else if (c == 'C') {
-            reverse_complement += 'G';
-            break;
-        } else if (c == 'G') {
-            reverse_complement += 'C';
-            break;
-        } else if (c == 'T') {
-            reverse_complement += 'A';
-            break;
-        } else {
-            throw std::runtime_error("Unexpected value: " + std::to_string(c));
-        }
-    }
-    return reverse_complement;
-}
-
 //read bit-parallel times (ms) 
 //returns bit-parallel times (ms) 
-int Utility::loadTime(const std::string& filePath) {
+int FileReader::loadTime(const std::string& filePath) {
     try {
         std::ifstream file(filePath);
         std::string line;
@@ -187,7 +129,7 @@ int Utility::loadTime(const std::string& filePath) {
 }
 
 //sum bit-parallel times
-double Utility::add_bit_parallel_times(const std::vector<std::string>& graphNames) {
+double FileReader::add_bit_parallel_times(const std::vector<std::string>& graphNames) {
     double sum = 0.0;
     for (const std::string& graphName : graphNames) {
         sum += loadTime("../bit_parallel_times/" + graphName.substr(0, graphName.length() - 3) + "txt");
@@ -195,7 +137,7 @@ double Utility::add_bit_parallel_times(const std::vector<std::string>& graphName
     return sum / 1000000;
 }
 
-int Utility::loadMemory(const std::string& filePath) {
+int FileReader::loadMemory(const std::string& filePath) {
     try {
         std::ifstream file(filePath);
         std::string line;
@@ -207,13 +149,4 @@ int Utility::loadMemory(const std::string& filePath) {
         std::cerr << e.what() << std::endl;
         return 0;  // Return 0 on error
     }
-}
-
-//returns copy of neighbors
-std::vector<std::vector<int>> Utility::copyNeighbors(const std::vector<std::vector<int>>& neighbors) {
-    std::vector<std::vector<int>> newList;
-    for (const std::vector<int>& nodeNeighbors : neighbors) {
-        newList.push_back(nodeNeighbors);
-    }
-    return newList;
 }

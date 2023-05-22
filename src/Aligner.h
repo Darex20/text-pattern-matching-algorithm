@@ -14,6 +14,6 @@ class Aligner {
 	public:
 		Aligner(Graph& graph, const vector<int>& topologicalOrder);
 		int align(string pattern);
-		void propagate(int u, int v, vector<int>& realEditDistances);
 		int alignCycle(string pattern);
+		void propagate(int u, int v, vector<int>& realEditDistances);
 };

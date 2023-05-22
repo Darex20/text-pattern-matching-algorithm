@@ -1,5 +1,5 @@
 #include "Graph.h"
-#include "Utility.h"
+#include "NodeUtils.h"
 
 #include <iostream>
 #include <string>
@@ -87,8 +87,8 @@ vector<int> Graph::topologicalOrderOfNodesCyclic() {
 vector<int> Graph::topologicalOrderOfNodesAcyclic() {
     vector<int> L;
     vector<int> S;
-    vector<vector<int>> inNeighborsCopy = Utility::copyNeighbors(inNeighbors);
-    vector<vector<int>> outNeighborsCopy = Utility::copyNeighbors(outNeighbors);
+    vector<vector<int>> inNeighborsCopy = NodeUtils::copyNeighbors(inNeighbors);
+    vector<vector<int>> outNeighborsCopy = NodeUtils::copyNeighbors(outNeighbors);
 
     for (int i = 0; i < inNeighbors.size(); i++) {
         if (inNeighbors[i].size() == 0)

@@ -18,7 +18,6 @@ public:
     int getNodeId();
     bool getReversed();
     string getGraphSequence();
-
 };
 
 class Graph {
