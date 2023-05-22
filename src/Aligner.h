@@ -8,8 +8,8 @@
 
 class Aligner {
 	private:
-	    Graph graph;
-	    vector<int> topologicalOrder;
+	    Graph graph; //graph
+	    vector<int> topologicalOrder; //vector that contains indexes of nodes in topological order
 	    void f(vector<int>& realEditDistances, vector<int>& iterationEditDistances, const string& pattern, int j, int node);
 	public:
 		Aligner(Graph& graph, const vector<int>& topologicalOrder);

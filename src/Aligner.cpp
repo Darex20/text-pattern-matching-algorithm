@@ -5,17 +5,20 @@
 #include <string>
 #include <sstream>
 
+//constructor
 Aligner::Aligner(Graph& graph, const vector<int>& topologicalOrder) {
 	this -> graph = graph;
-	this -> topologicalOrder = topologicalOrder;
+	this -> topologicalOrder = topologicalOrder; //list with node indexes but in topological order
 }
 
+//align acyclic graph with pattern
+//returns the smallest edit distance
 int Aligner::align(string pattern) {
 	
     vector<int> realEditDistances(graph.graphSequence.size(), 0); // Cv
-    vector<int> iterationEditDistances(graph.graphSequence.size(), 0); // C'v
+    vector<int> iterationEditDistances(graph.graphSequence.size(), 0); // C'v -> min(Cv, 1+Cu)
     
-	// Initialize lists of edit distances
+	// initialize lists of edit distances
     for (int j = 0; j < realEditDistances.size(); j++) {
         char char_in_graph = graph.graphSequence[j];
         realEditDistances[j] = (pattern[0] == char_in_graph) ? 0 : 1;
@@ -23,6 +26,7 @@ int Aligner::align(string pattern) {
     }
 
     for (int j = 1; j < pattern.length(); j++) {
+        //iterate through nodes
         for (int node : topologicalOrder) {
             this->f(realEditDistances, iterationEditDistances, pattern, j, node);
         }
@@ -32,14 +36,16 @@ int Aligner::align(string pattern) {
         realEditDistances = iterationEditDistances;
         iterationEditDistances = tmp;
     }
-
+    //let smallest be maximum int value
     int smallest = INT_MAX;
     for (int realEditDistance : realEditDistances) {
         smallest = std::min(smallest, realEditDistance);
     }
-    return smallest;
+    return smallest; //smallest edit distance
 }
 
+//align cyclic graph with pattern
+//returns the smallest edit distance
 int Aligner::alignCycle(std::string pattern) {
     vector<int> realEditDistances(graph.graphSequence.size(), 0);
     vector<int> iterationEditDistances(graph.graphSequence.size(), 0);
@@ -54,7 +60,7 @@ int Aligner::alignCycle(std::string pattern) {
         for (int i = 0; i < iterationEditDistances.size(); i++)
             iterationEditDistances[i] = pattern.length();
 
-        // For every node in graph
+        // iterate through every node
         for (int node : topologicalOrder) {
             this->f(realEditDistances, iterationEditDistances, pattern, j, node);
         }
@@ -78,9 +84,10 @@ int Aligner::alignCycle(std::string pattern) {
     return smallest;
 }
 
+//Navarro algorithm, f function
 void Aligner::f(vector<int>& realEditDistances, vector<int>& iterationEditDistances, const string& pattern, int j, int node) {
-    int start = graph.getNodeStartInSequence(node);
-    int end = graph.getNodeEndInSequence(node);
+    int start = graph.getNodeStartInSequence(node); //start
+    int end = graph.getNodeEndInSequence(node); //end
 
     // Instead of j-1, we take last iteration + 1
     iterationEditDistances[start] = realEditDistances[start] + 1;
@@ -88,20 +95,20 @@ void Aligner::f(vector<int>& realEditDistances, vector<int>& iterationEditDistan
     char charInGraph = graph.graphSequence[start];
     bool match = (charInGraph == pattern[j]);
 
-    int smallestNeighbor = INT_MAX;
+    int smallestNeighbor = INT_MAX; //set smallest value on maximum int value
     for (int neighbor : graph.inNeighbors[node]) {
         int lastInNeighborIndex = graph.getNodeEndInSequence(neighbor) - 1;
         smallestNeighbor = min(smallestNeighbor, realEditDistances[lastInNeighborIndex]);
     }
 
-    int smallestIterationNeighbor = INT_MAX;
+    int smallestIterationNeighbor = INT_MAX; //set smallest value on maximum int value
+    //iterate through neighbors
     for (int neighbor : graph.inNeighbors[node]) {
         int lastInNeighborIndex = graph.getNodeEndInSequence(neighbor) - 1;
         smallestIterationNeighbor = std::min(smallestIterationNeighbor, iterationEditDistances[lastInNeighborIndex]);
     }
 
     if (match) {
-        // Instead of j-1, we take last iteration + 1
         iterationEditDistances[start] = min(iterationEditDistances[start], smallestNeighbor);
     } else {
         iterationEditDistances[start] = 1 + min(realEditDistances[start], min(smallestNeighbor, smallestIterationNeighbor));
@@ -112,13 +119,13 @@ void Aligner::f(vector<int>& realEditDistances, vector<int>& iterationEditDistan
         match = (charInGraph == pattern[j]);
         if (match) {
             iterationEditDistances[c] = realEditDistances[c - 1];
-            //iterationEditDistances[c] = std::min(j - 1, realEditDistances[c - 1]);
         } else {
             iterationEditDistances[c] = 1 + min(realEditDistances[c], std::min(realEditDistances[c - 1], iterationEditDistances[c - 1]));
         }
     }
 }
 
+//Navarro algorithm, propagation function
 void Aligner::propagate(int u, int v, vector<int>& realEditDistances) {
     int u_end = graph.getNodeEndInSequence(u) - 1;
     int v_start = graph.nodeIndexInGraphSequence[v];

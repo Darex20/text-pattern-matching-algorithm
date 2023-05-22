@@ -6,6 +6,7 @@
 
 using namespace std;
 
+//class used for utility functions
 class Utility {
 public:
     static Graph readGraph(const string& filePath);

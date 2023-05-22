@@ -11,6 +11,7 @@ using namespace std;
 
 void run_for_one_graph(const string& graphName, const string& fastqName, ofstream& writer);
 
+//print solutions, read files 
 int main () {
 	ofstream writer("../summary.txt", ios::app);
 	vector<string> graphNames = {"ref10000_linear.gfa", "ref10000_snp.gfa", "ref10000_tangle.gfa",
@@ -86,6 +87,8 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
 	        correct++;
 	    }
 	}
+	
+
 	
 	cout << "graph file: " << graphName << endl;
 	cout << "score: " << correct << "/" << scores.size() << endl;

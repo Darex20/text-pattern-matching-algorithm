@@ -9,7 +9,7 @@ using namespace std;
 
 class Node {
 private:
-    int id;
+    int id; //id of node
     bool reversed;
     string sequence;
 
@@ -25,12 +25,12 @@ class Graph {
 private:
     
 public:
-    int overlap;
-    vector<char> graphSequence;
-    vector<vector<int>> inNeighbors;
-    unordered_map<int, int> nodesMap;
-    vector<int> nodeIndexInGraphSequence;
-    vector<vector<int>> outNeighbors;
+    int overlap; //overlap from .gfa file. we use it when we create nodes. 
+    vector<char> graphSequence; //vector of chars which contains all nodes in graph
+    vector<vector<int>> inNeighbors; //for node x stores list of nodes that goes to node x
+    unordered_map<int, int> nodesMap; //used for normalizing nodes
+    vector<int> nodeIndexInGraphSequence; //vector which contains indexes of every start node 
+    vector<vector<int>> outNeighbors; //for node x stores list of nodes that goes from node x
 
     Graph();
     int getNodeStartInSequence(int node);
