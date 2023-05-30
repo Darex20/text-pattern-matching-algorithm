@@ -1,45 +1,7 @@
-ref10000_linear.gfa:
-score: 77/77
-bit parallel took 3.17859 s
-Navarro took 66.5909 s
-time ratio: 20.9498
-bit parallel memory usage: 1844.98KB
-Navarro memory usage: 1KB
-memory ratio: 0.00054201
-
-ref10000_linear.gfa:
-score: 77/77
-bit parallel took 3.17859 s
-Navarro took 65.1693 s
-time ratio: 20.5026
-bit parallel memory usage: 1844.98KB
-Navarro memory usage: 1KB
-memory ratio: 0.00054201
-
-ref10000_snp.gfa:
-score: 77/77
-bit parallel took 6.0609 s
-Navarro took 169.384 s
-time ratio: 27.947
-bit parallel memory usage: 4191.48KB
-Navarro memory usage: 1KB
-memory ratio: 0.000238579
-
-ref10000_tangle.gfa:
-score: 77/77
-bit parallel took 32.8727 s
-Navarro took 111.231 s
-time ratio: 3.3837
-bit parallel memory usage: 1992.72KB
-Navarro memory usage: 1KB
-memory ratio: 0.000501827
-
-ref10000_twopath.gfa:
-score: 77/77
-bit parallel took 52.625 s
-Navarro took 904.324 s
-time ratio: 17.1843
-bit parallel memory usage: 18413.1KB
-Navarro memory usage: 1KB
-memory ratio: 5.43091e-05
+Algorithm was run on: linear.gfa
+Overall score: 77/77
+Bit parallel sequence-to-graph alignment algorithm time was: 3.17859 s
+Navarro algorithm implementation time was: 65.5572 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 1844.98KB
+Navarro algorithm implementation memory usage was: 1.07039e+07KB
 
