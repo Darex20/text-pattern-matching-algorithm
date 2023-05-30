@@ -1,7 +1,30 @@
+
 Algorithm was run on: linear.gfa
 Overall score: 77/77
 Bit parallel sequence-to-graph alignment algorithm time was: 3.17859 s
-Navarro algorithm implementation time was: 65.5572 s
+Navarro algorithm implementation time was: 68.2298 s
 Bit parallel sequence-to-graph alignment algorithm memory usage was: 1844.98KB
-Navarro algorithm implementation memory usage was: 1.07039e+07KB
+Navarro algorithm implementation memory usage was: 1.13904e+07KB
+
+Algorithm was run on: twopath.gfa
+Overall score: 77/77
+Bit parallel sequence-to-graph alignment algorithm time was: 52.625 s
+Navarro algorithm implementation time was: 902.531 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 18413.1KB
+Navarro algorithm implementation memory usage was: 1.09731e+07KB
+
+Algorithm was run on: snp.gfa
+Overall score: 77/77
+Bit parallel sequence-to-graph alignment algorithm time was: 6.0609 s
+Navarro algorithm implementation time was: 170.518 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 4191.48KB
+Navarro algorithm implementation memory usage was: 1.07862e+07KB
+
+Algorithm was run on: tangle.gfa
+Overall score: 77/77
+Bit parallel sequence-to-graph alignment algorithm time was: 32.8727 s
+Navarro algorithm implementation time was: 114.609 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 1992.72KB
+Navarro algorithm implementation memory usage was: 1.07553e+07KB
+
 

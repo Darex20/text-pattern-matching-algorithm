@@ -1,4 +1,4 @@
-#include "Aligner.h"
+#include "Navarro.h"
 #include "FileReader.h"
 
 #include <iostream>
@@ -12,7 +12,6 @@ using namespace std;
 
 void run_for_one_graph(const string& graphName, const string& fastqName, ofstream& writer);
 
-//print solutions, read files 
 int main () {
 	ofstream writer("../summary.txt", ios::app);
 	vector<string> graphNames = {"linear.gfa", "twopath.gfa", "snp.gfa", "tangle.gfa"};
@@ -60,7 +59,7 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
 	    topologicalOrder = graph.topologicalOrderOfNodesCyclic();
 	}
 	
-	Aligner aligner = Aligner(graph, topologicalOrder);
+	Navarro navarro = Navarro(graph, topologicalOrder);
     vector<int> scores;
     int i = 0;
     cout << "Navarro implementation score - Bit-parallel alignment score" << endl;
@@ -68,9 +67,9 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
     for (const auto& fastq : fastqs) {
     	int score = 0;
     	if (!hasCycle) {
-    		score = aligner.align(fastq);
+    		score = navarro.align(fastq);
 		} else {
-			score = aligner.alignCycle (fastq);
+			score = navarro.alignCycle (fastq);
 		}
 		int difference = bit_parallel_scores[i] - score;
 		cout << "Navarro: " << score << " ---- Bit-parallel: " << bit_parallel_scores[i] << " -> difference = " << difference << endl;
@@ -94,6 +93,7 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
     DWORDLONG virtualMemUsed = memInfo.ullTotalPageFile - memInfo.ullAvailPageFile;
 	DWORDLONG physMemUsed = memInfo.ullTotalPhys - memInfo.ullAvailPhys;
     
+	cout << endl;
     cout << "Algorithm was run on: " << graphName << endl;
     cout << "Overall score: " << correct << "/" << scores.size() << endl;
     double bit_parallel_time_in_seconds = bit_parallel_time / 1000000.0;

@@ -1,19 +1,18 @@
 #include "Graph.h"
-#include "Aligner.h"
+#include "Navarro.h"
 
 #include <iostream>
 #include <string>
 #include <sstream>
 
-//constructor
-Aligner::Aligner(Graph& graph, const vector<int>& topologicalOrder) {
+Navarro::Navarro(Graph& graph, const vector<int>& topologicalOrder) {
 	this -> graph = graph;
 	this -> topologicalOrder = topologicalOrder; //list with node indexes but in topological order
 }
 
-//align acyclic graph with pattern
-//returns the smallest edit distance
-int Aligner::align(string pattern) {
+// Align acyclic graph with pattern
+// returns the smallest edit distance
+int Navarro::align(string pattern) {
 	
     vector<int> realEditDistances(graph.graphSequence.size(), 0); // Cv
     vector<int> iterationEditDistances(graph.graphSequence.size(), 0); // C'v -> min(Cv, 1+Cu)
@@ -28,7 +27,7 @@ int Aligner::align(string pattern) {
     for (int j = 1; j < pattern.length(); j++) {
         //iterate through nodes
         for (int node : topologicalOrder) {
-            this->f(realEditDistances, iterationEditDistances, pattern, j, node);
+            this->g(realEditDistances, iterationEditDistances, pattern, j, node);
         }
 
         // Cv <- C'v
@@ -44,9 +43,9 @@ int Aligner::align(string pattern) {
     return smallest; //smallest edit distance
 }
 
-//align cyclic graph with pattern
-//returns the smallest edit distance
-int Aligner::alignCycle(std::string pattern) {
+// Align cyclic graph with pattern
+// returns the smallest edit distance
+int Navarro::alignCycle(std::string pattern) {
     vector<int> realEditDistances(graph.graphSequence.size(), 0);
     vector<int> iterationEditDistances(graph.graphSequence.size(), 0);
 
@@ -62,7 +61,7 @@ int Aligner::alignCycle(std::string pattern) {
 
         // iterate through every node
         for (int node : topologicalOrder) {
-            this->f(realEditDistances, iterationEditDistances, pattern, j, node);
+            this->g(realEditDistances, iterationEditDistances, pattern, j, node);
         }
 
         // Cv <- C'v
@@ -84,25 +83,28 @@ int Aligner::alignCycle(std::string pattern) {
     return smallest;
 }
 
-//Navarro algorithm, f function
-void Aligner::f(vector<int>& realEditDistances, vector<int>& iterationEditDistances, const string& pattern, int j, int node) {
+// Navarro algorithm, g function
+void Navarro::g(vector<int>& realEditDistances, vector<int>& iterationEditDistances, const string& pattern, int j, int node) {
     int start = graph.getNodeStartInSequence(node); //start
     int end = graph.getNodeEndInSequence(node); //end
 
-    // Instead of j-1, we take last iteration + 1
+    // instead of j-1, we take last iteration + 1
     iterationEditDistances[start] = realEditDistances[start] + 1;
 
     char charInGraph = graph.graphSequence[start];
     bool match = (charInGraph == pattern[j]);
 
-    int smallestNeighbor = INT_MAX; //set smallest value on maximum int value
+    // set smallest value on maximum int value
+    int smallestNeighbor = INT_MAX; 
     for (int neighbor : graph.inNeighbors[node]) {
         int lastInNeighborIndex = graph.getNodeEndInSequence(neighbor) - 1;
         smallestNeighbor = min(smallestNeighbor, realEditDistances[lastInNeighborIndex]);
     }
 
-    int smallestIterationNeighbor = INT_MAX; //set smallest value on maximum int value
-    //iterate through neighbors
+    // set smallest value on maximum int value
+    int smallestIterationNeighbor = INT_MAX;
+
+    // iterate through neighbors
     for (int neighbor : graph.inNeighbors[node]) {
         int lastInNeighborIndex = graph.getNodeEndInSequence(neighbor) - 1;
         smallestIterationNeighbor = std::min(smallestIterationNeighbor, iterationEditDistances[lastInNeighborIndex]);
@@ -125,14 +127,15 @@ void Aligner::f(vector<int>& realEditDistances, vector<int>& iterationEditDistan
     }
 }
 
-//Navarro algorithm, propagation function
-void Aligner::propagate(int u, int v, vector<int>& realEditDistances) {
+// Navarro algorithm, propagation function
+void Navarro::propagate(int u, int v, vector<int>& realEditDistances) {
     int u_end = graph.getNodeEndInSequence(u) - 1;
     int v_start = graph.nodeIndexInGraphSequence[v];
     int v_end = graph.getNodeEndInSequence(v) - 1;
     int new_value = realEditDistances[u_end] + 1;
     if (realEditDistances[v_start] > new_value) {
         realEditDistances[v_start] = new_value;
+
         // Propagate further inside node
         new_value++;
         for (int c = v_start + 1; c < v_end; c++) {

@@ -6,14 +6,12 @@
 #include <sstream>
 #include <algorithm>
 
-//one node in graph
 Node::Node(int id, bool reversed, string sequence){
     this->id = id;
     this->reversed = reversed;
     this->sequence = sequence;
 }
 
-//getters
 int Node::getNodeId(void) {
     return id;
 }
@@ -26,26 +24,27 @@ string Node::getGraphSequence() {
     return sequence;
 }
 
-//graph which contains nodes and edges
 Graph::Graph() {
 }
 
-//getters
+// returns index of starting node in graph sequence
 int Graph::getNodeStartInSequence(int node) {
-    return nodeIndexInGraphSequence[node]; //returns index of starting node in graph sequence
+    return nodeIndexInGraphSequence[node]; 
 }
 
+// returns index od end node + 1 in graph sequence
 int Graph::getNodeEndInSequence(int node) {
     if (node == nodeIndexInGraphSequence.size() - 1)
         return graphSequence.size();
-    return nodeIndexInGraphSequence[node + 1]; //returns index od end node + 1 in graph sequence
+    return nodeIndexInGraphSequence[node + 1]; 
 }
 
+// returns total number of nodes in graph
 int Graph::getNumberOfNodesInGraph(void){
-    return nodeIndexInGraphSequence.size(); //returns total number of nodes in graph
+    return nodeIndexInGraphSequence.size(); 
 }
 
-//adds node in graph, adds sequence of node in 'graphSequence', adds starting node in list
+// Adds node in graph, adds sequence of node in 'graphSequence', adds starting node in list
 void Graph::addNode(Node node) {
     nodesMap[node.getNodeId()] = getNumberOfNodesInGraph();
     nodeIndexInGraphSequence.push_back(graphSequence.size());
@@ -56,7 +55,7 @@ void Graph::addNode(Node node) {
     }
 }
 
-//Util sort function for topologicalOrderOfNodesCyclic
+// Util sort function for topologicalOrderOfNodesCyclic
 void Graph::topologicalSortUtil(int v, vector<int>& stack, vector<bool>& visited) {
     visited[v] = true;
     vector<int>& neighbors = outNeighbors[v];
@@ -67,8 +66,8 @@ void Graph::topologicalSortUtil(int v, vector<int>& stack, vector<bool>& visited
     stack.push_back(v);
 }
 
-//DFS algorithm 
-//returns topological orfer of nodes in graph
+// DFS algorithm 
+// returns topological orfer of nodes in graph
 vector<int> Graph::topologicalOrderOfNodesCyclic() {
     vector<int> stack;
     vector<bool> visited(getNumberOfNodesInGraph(), false); //all nodes are not visited
@@ -82,8 +81,8 @@ vector<int> Graph::topologicalOrderOfNodesCyclic() {
     return stack;
 }
 
-//Kahn's sorting algorithm
-//https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
+// Kahn's sorting algorithm
+// https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/
 vector<int> Graph::topologicalOrderOfNodesAcyclic() {
     vector<int> L;
     vector<int> S;
@@ -116,6 +115,7 @@ vector<int> Graph::topologicalOrderOfNodesAcyclic() {
     return L;
 }
 
+// Function for creating and adding edges to a Graph
 void Graph::createAndAddEdges(string line) {
     vector<string> arr;
     stringstream ss(line);
