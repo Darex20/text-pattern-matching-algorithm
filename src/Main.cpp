@@ -97,13 +97,11 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
     cout << "Algorithm was run on: " << graphName << endl;
     cout << "Overall score: " << correct << "/" << scores.size() << endl;
     double bit_parallel_time_in_seconds = bit_parallel_time / 1000000.0;
-    double our_time_in_seconds = chrono::duration<double>(endTime - startTime).count();
-    double time_ratio = our_time_in_seconds / bit_parallel_time_in_seconds;
+    double navarro_time_in_seconds = chrono::duration<double>(endTime - startTime).count();
     double bit_parallel_memory_usage_in_kb = bit_parallel_memory_usage / 1024.0;
     double navarro_usage_in_kb = static_cast<double>(physMemUsed) / 1024.0;
-    double memory_ratio = navarro_usage_in_kb / bit_parallel_memory_usage_in_kb;
     cout << "Bit parallel sequence-to-graph alignment algorithm time was: " << bit_parallel_time_in_seconds << "s" << endl;
-    cout << "Navarro algorithm implementation time was: " << our_time_in_seconds << "s" << endl;
+    cout << "Navarro algorithm implementation time was: " << navarro_time_in_seconds << "s" << endl;
     cout << "Bit parallel sequence-to-graph alignment algorithm memory usage was: " << bit_parallel_memory_usage_in_kb << "KB" << endl;
     cout << "Navarro algorithm implementation memory usage was: " << navarro_usage_in_kb << "KB" << endl;
     cout << endl;
@@ -114,7 +112,7 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
 		outputFile << "Algorithm was run on: " << graphName << endl;
 		outputFile << "Overall score: " << correct << "/" << scores.size() << "\n";
 		outputFile << "Bit parallel sequence-to-graph alignment algorithm time was: " << bit_parallel_time_in_seconds << " s\n";
-		outputFile << "Navarro algorithm implementation time was: " << our_time_in_seconds << " s\n";
+		outputFile << "Navarro algorithm implementation time was: " << navarro_time_in_seconds << " s\n";
 		outputFile << "Bit parallel sequence-to-graph alignment algorithm memory usage was: " << bit_parallel_memory_usage_in_kb << "KB\n";
 		outputFile << "Navarro algorithm implementation memory usage was: " << navarro_usage_in_kb << "KB\n" << endl;
 		outputFile.close();
