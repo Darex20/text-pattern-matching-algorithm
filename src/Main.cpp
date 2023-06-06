@@ -14,15 +14,15 @@ void run_for_one_graph(const string& graphName, const string& fastqName, ofstrea
 
 int main () {
 	ofstream writer("../summary.txt", ios::app);
-	vector<string> graphNames = {"linear.gfa", "twopath.gfa", "snp.gfa", "tangle.gfa"};
-    string fastqName = "simulatedreads.fastq";
+	vector<string> graphNames = {"linear1.gfa", "twopath.gfa", "snp.gfa", "tangle.gfa"};
+    string fastqName = "dreads.fastq";
 
 	string onlyLinear;
 	cout << "Do you want to run the algorithm for only linear graph? (yes/no) ";
 	getline(cin, onlyLinear);
 
 	if (onlyLinear == "yes"){
-		run_for_one_graph("linear.gfa", fastqName, writer);
+		run_for_one_graph("linear1.gfa", fastqName, writer);
 	} else if (onlyLinear == "no"){
 		for (const auto& graphName : graphNames) {
 			run_for_one_graph (graphName, fastqName, writer);

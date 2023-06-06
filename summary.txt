@@ -28,3 +28,87 @@ Bit parallel sequence-to-graph alignment algorithm memory usage was: 1992.72KB
 Navarro algorithm implementation memory usage was: 1.07553e+07KB
 
 
+Algorithm was run on: linear1.gfa
+Overall score: 0/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0020021 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.22986e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 1/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0050046 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.2114e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 0/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0050048 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.2402e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 0/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0080061 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.28486e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 0/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0060052 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.26038e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 0/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0050046 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.28218e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 0/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0070072 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.29496e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 0/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0060047 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.29752e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 1/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0090075 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.31386e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 1/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0100081 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.38803e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 1/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0060041 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.45287e+06KB
+
+Algorithm was run on: linear1.gfa
+Overall score: 1/1
+Bit parallel sequence-to-graph alignment algorithm time was: 1e-06 s
+Navarro algorithm implementation time was: 0.0010006 s
+Bit parallel sequence-to-graph alignment algorithm memory usage was: 0.000976562KB
+Navarro algorithm implementation memory usage was: 7.40486e+06KB
+
